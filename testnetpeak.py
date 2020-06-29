@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.color import Color
+import os
 import time
 
 driver = webdriver.Chrome()
@@ -20,9 +21,10 @@ btn_1 = driver.find_element_by_link_text('Я хочу работать в Netpea
 btn_1.click()
 
 #4. Загрузить файл с недопустимым форматом в блоке "Резюме", например png, и проверить что на странице появилось сообщение, о том что формат изображения неверный.
-time.sleep(2)
+time.sleep(4)
 upload = driver.find_element_by_name('up_file')
-upload.send_keys('W:\Z\PyProj\W\g.png')
+
+upload.send_keys(os.getcwd() + "/g.png")
 time.sleep(2)
 er = driver.find_element_by_xpath('//*[@id="up_file_name"]/label')
 assert "Ошибка: неверный формат файла (разрешённые форматы: doc, docx, pdf, txt, odt, rtf)." in driver.page_source
@@ -49,7 +51,6 @@ logo = driver.find_element_by_xpath('//*[@id="header"]/div[1]/div/div/div[1]/div
 logo.click()
 time.sleep(3)
 url = driver.current_url
-print(url)
 assert "https://netpeak.ua/" == url
 
 
